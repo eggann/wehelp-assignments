@@ -3,7 +3,7 @@ let src="https://padax.github.io/taipei-day-trip-resources/taipei-attractions-as
 let content = document.createElement('div');
 content.setAttribute("class", "content");
 
-for(let i=1;i<9;i++){
+for(let i=0;i<8;i++){
     
     let content2 = document.createElement('div');
     document.body.appendChild(content);
