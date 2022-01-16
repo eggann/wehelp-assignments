@@ -1,37 +1,43 @@
-let src="https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json";
+function main() {
+    let src = "https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json";
 
-let content = document.createElement('div');
-content.setAttribute("class", "content");
-
-for(let i=0;i<8;i++){
-    
-    let content2 = document.createElement('div');
-    document.body.appendChild(content);
-    content.appendChild(content2);
-    content2.setAttribute("class", "all");
-
-    let img = document.createElement('img');
-    document.body.appendChild(content);
-    content2.appendChild(img);
-
-    let name = document.createElement('div');
-    document.body.appendChild(content);
-    content2.appendChild(name);
-
-
-    fetch(src).then(function(response) {
+    fetch(src)
+    .then(function(response) {
         return response.json();
-        })
-        .then(function(myJson) {
-        console.log(myJson['result']['results']['0']);
-        const myString = myJson['result']['results'][i]['file'];
-        const splits = myString.split(['https']);
-        console.log(String("https")+splits[1]);
-        img.setAttribute("src",String("https")+splits[1]);
-        img.setAttribute("class", "img");
-
-        name.textContent = myJson['result']['results'][i]['stitle'];
-        name.setAttribute("class", "img_name");
-
+    })
+    .then(function(result) {
+        let content = document.createElement('div');
+        document.body.appendChild(content);
+        content.setAttribute("class", "content");
+    
+        Array.from(Array(8)).forEach((_, index) => {
+            /**
+             * all section
+             */
+            const all = document.createElement('div');
+            content.appendChild(all);
+            all.setAttribute("class", "all");
+        
+            /**
+             * img section
+             */
+            const myString = result.result.results[index].file;
+            const splits = myString.split(['https']);
+            const src = `https${splits[1]}`;
+            const img = document.createElement('img');
+            all.appendChild(img);
+            img.setAttribute("src", src);
+            img.setAttribute("class", "img");
+        
+            /**
+             * name section
+             */
+            const name = document.createElement('div');
+            all.appendChild(name);
+            name.textContent = result.result.results[index].stitle;
+            name.setAttribute("class", "img_name");
+        });
     });
 };
+
+main();
