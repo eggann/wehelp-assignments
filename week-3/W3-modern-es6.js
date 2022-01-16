@@ -45,7 +45,7 @@ async function main() {
     // 進行 ajax request 取得 image src 
     const response = await getSrcByAjaxRequest(
       'https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json',
-      5000, // 這邊為了展示非同步執行，讓執行緒睡 5 秒
+      5000, /** @info 這邊為了展示非同步執行，讓執行緒睡 5 秒，請自行修改 */
     );
 
     // 確定得到 response 後 移除 loading spinner
