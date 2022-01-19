@@ -1,0 +1,18 @@
+* {
+    margin: 0px;
+}
+
+.head {
+    background-color: blanchedalmond;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
