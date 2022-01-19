@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8" />
+       <title>EvanYeh_week4_HW</title>
+       <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/week4.css') }}"/>
+    </head>
+    <body>
+        <div class="head">
+            <h1>歡迎光臨，請輸入帳號密碼</h1>
+        </div>
+        <div class="content">
+            <form style="
+            width: 300px;
+            display: block;
+            align-items: center;
+            justify-content: center;
+
+            display: grid;
+            grid-template-columns: 1fr;
+            ">
+                <h3>登入系統</h3>
+                <div >
+                    <p>帳號</p> 
+                    <input 
+                    type="text" 
+                    name="account" 
+                    style="
+                    width:200px;
+                    align-items: center;
+                    justify-content: center;
+                    "/>
+                </div>
+                密碼 <input type="text" name="password" />
+                <button>登入</button>
+            </form>
+        </div>
+    </body>
+</html>
