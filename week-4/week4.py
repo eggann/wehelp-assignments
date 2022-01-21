@@ -5,7 +5,6 @@ from flask import request # 載入 Request 物件
 from flask import render_template
 from flask import session
 from flask import redirect
-from markupsafe import string
 
 app = Flask(
     __name__,
