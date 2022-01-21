@@ -57,17 +57,10 @@
     </head>
     <body>
         <div class="head">
-            <h1>歡迎光臨，請輸入帳號密碼</h1>
+            <h1>失敗頁面</h1>
         </div>
         <div id="form">
-           <h3>登入系統</h3>
-           <form action="/signin" method="POST">
-               <label>帳號</label>
-               <input type="text" name="account"><br/>
-               <label>密碼</label>
-               <input type="password" name="password"><br/>
-               <button>登入</button>
-           </form>
+           <h3>{{ data }}</h3>
         </div>
     </body>
 </html>
