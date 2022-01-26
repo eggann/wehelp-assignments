@@ -1,7 +1,9 @@
 <h1>要求三：SQL CRUD</h1>
 <br/>
 <p>使用 INSERT 指令新增一筆資料到 member 資料表中，這筆資料的 username 和password 欄位必須是 test。接著繼續新增至少 4 筆隨意的資料</p>
+
 ![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/1_INSERT_DATA.jpg)
+
 <br/>
 <p>使用 SELECT 指令取得 member 資料表中第 2 ~ 4 共三筆資料，並按照 time 欄位，由近到遠排序</p>
 <p style= color: red;>把 LIMIT 那行去除就是直接用 `time` 排序 (由近到遠)</p>
