@@ -49,8 +49,31 @@
 <p>取得 member 資料表中，所有會員 follower_count 欄位的總和</p>
 
 ![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/7_SUM.jpg)
+
 <br/>
 
 <p>取得 member 資料表中，所有會員 follower_count 欄位的平均數</p>
 
 ![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/8_AVG.jpg)
+
+<br/>
+
+<br/>
+
+<h1>要求五：SQL JOIN (Optional)</h1>
+
+<p>在資料庫中，建立新資料表，取名字為 message。資料表中必須包含以下欄位設定：</p>
+
+![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/9_MESSAGE.jpg)
+
+<br/>
+
+<p>使用 SELECT 搭配 JOIN 語法，取得所有留言，結果須包含留言者會員的姓名</p>
+
+![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/10_ALL_MESSAGE.jpg)
+
+<br/>
+
+<p>使用 SELECT 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留言，資料中須包含留言者會員的姓名</p>
+
+![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/11_USERNAME_TEST.jpg)
