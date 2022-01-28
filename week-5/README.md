@@ -77,3 +77,13 @@
 <p>使用 SELECT 搭配 JOIN 語法，取得 member 資料表中欄位 username 是 test 的所有留言，資料中須包含留言者會員的姓名</p>
 
 ![img](https://raw.githubusercontent.com/eggann/wehelp-assignments/main/week-5/images/11_USERNAME_TEST.jpg)
+
+<br/>
+
+<h1>額外補充</h1>
+
+<p>用 mysqldump 匯出 data.sql 步驟</p>
+
+<br/>
+
+<li>找到存放 mysqldump.exe 的路徑</li>
