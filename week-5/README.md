@@ -86,4 +86,6 @@
 
 <br/>
 
-<li>找到存放 mysqldump.exe 的路徑</li>
+<li>找到存放 mysqldump.exe 的路徑 (C:/Program Files/MySQL/MySQL Server 8.0/bin)</li>
+
+<li>輸入指令 :  .\mysqldump -u root -p website > 想要的位置\想要的名稱.sql</li>
