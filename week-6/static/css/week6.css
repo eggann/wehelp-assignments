@@ -1,0 +1,17 @@
+* {
+    margin: 0px;
+}
+
+.head {
+    background-color: blanchedalmond;
+    height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+label {
+    width: 100px;
+    display: inline-block;
+}
