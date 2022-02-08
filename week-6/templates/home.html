@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8" />
+       <title>EvanYeh_week6_HW</title>
+       <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/week6.css') }}"/>
+       <style type="text/css">
+        * {
+            margin: 0px;
+        }
+        
+        .head {
+            background-color: blanchedalmond;
+            height: 100px;
+        
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h3 {
+            text-align: center;
+            padding: 20px;
+            font-size: 25px;
+        }
+
+        #form {
+            border-radius: 10px;
+            width: 290px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+        }
+        
+        label {
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            padding-top: 4px;
+            font-size: 20px;
+        }
+
+        input {
+            height: 20px;
+        }
+
+        button {
+            width: 20%;
+            padding: 5px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+       </style>
+    </head>
+    <body>
+        <div class="head">
+            <h1>歡迎光臨，請註冊登入系統</h1>
+        </div>
+        <div id="form">
+            <h3>註冊帳號</h3>
+            <form action="/signup" method="POST">
+                <label>姓名</label>
+                <input type="text" name="name_new"><br/>
+                <label>帳號</label>
+                <input type="text" name="account_new"><br/>
+                <label>密碼</label>
+                <input type="password" name="password_new"><br/>
+                <button>註冊</button>
+            </form>
+        </div>
+        <br/>
+        <br/>
+        <hr>
+        <div id="form">
+           <h3>登入系統</h3>
+           <form action="/signin" method="POST">
+               <label>帳號</label>
+               <input type="text" name="account"><br/>
+               <label>密碼</label>
+               <input type="password" name="password"><br/>
+               <button>登入</button>
+           </form>
+        </div>
+    </body>
+</html> 
