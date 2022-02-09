@@ -6,20 +6,20 @@ from flask import redirect
 from werkzeug.security import generate_password_hash
 import mysql.connector
         
-mydb = mysql.connector.connect(
-host = "localhost",
-port = 3306,
-user = "root",
-database = "flaskapp",
-password = ""
-)
+# mydb = mysql.connector.connect(
+# host = "localhost",
+# port = 3306,
+# user = "root",
+# database = "flaskapp",
+# password = "jiggjo9182"
+# )
     
-mycursor = mydb.cursor()
-sql = "INSERT INTO users (name, account, password) VALUES (%s, %s, %s)"
+# mycursor = mydb.cursor()
+# sql = "INSERT INTO users (name, account, password) VALUES (%s, %s, %s)"
 # val = ("Ben", "Benyeh", "benyeh123")
-mycursor.execute(sql)
-mydb.commit()
-mydb.close()
+# mycursor.execute(sql)
+# mydb.commit()
+# mydb.close()
 
 app = Flask(
     __name__,
@@ -41,10 +41,37 @@ def signup():
         account = userDetails['account_new']
         password = userDetails['password_new']
         hash_pwd = generate_password_hash(password)
-
-            
-    
-    return 'success'
+        
+        mydb = mysql.connector.connect(
+        host = "localhost",
+        port = 3306,
+        user = "root",
+        database = "flaskapp",
+        password = "jiggjo9182",
+        charset = "utf8"
+        )
+        
+        mycursor = mydb.cursor()
+        sql = """INSERT INTO users(name, account, password) VALUES (%s, %s, %s) """
+        val = (name, account, hash_pwd)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        return 'success'
+        # cur = """SELECT * FROM `users` WHERE `account` = %s"""
+        # mycursor.execute(cur, (account, ))
+        # result = int(mycursor.fetchall())
+        # if (len(result) == 0):
+        #     return False
+        # else:
+        #     return True
+        # num = cur.fetchall()
+        # num = int(num[0][0])
+        # if num >= 1:
+        #     result = "帳號已經被註冊"
+        #     return redirect(url_for('error', message=result))
+        # else:
+        #     return redirect("/")
+        # return 'success'
     # return render_template('home.html')
 
 @app.route("/signin",methods=["GET","POST"])
