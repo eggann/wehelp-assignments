@@ -62,22 +62,22 @@ def signup():
 @app.route("/signin",methods=["GET","POST"])
 def signin():
     if request.method == 'POST':
-        # name=request.form["name"]
+        name=request.form["name"]
         account=request.form["account"]
         password=request.form["password"]
         # hash_pwd = generate_password_hash(password)
         
         sql = """
-            SELECT count(account), count(password) FROM users WHERE account = %s and password = %s;
+            SELECT count(name), count(account), count(password) FROM users WHERE name = %s and account = %s and password = %s;
         """
         val = (account, password)
         mycursor = mydb.cursor()
         mycursor.execute(sql, val)
         num = tuple(mycursor)[0][0]
-        session["account"] = account
+        session["name"] = name
         if num:
-            account = session["account"]
-            return redirect(url_for('member', message=account))
+            name = session["name"]
+            return redirect(url_for('member', message=name))
         elif (account == '' and password == '') or (account == '' and password != '') or (account != '' and password == ''):
             result = "請輸入帳號、密碼"
             return redirect(url_for('error', message=result))
@@ -88,8 +88,8 @@ def signin():
 @app.route("/member/")
 def member():
     if "account" in session:
-        account = request.args.get("message")
-        return render_template("member.html", message=account)
+        name = request.args.get("message")
+        return render_template("member.html", message=name)
     else:
         return redirect("/")
 
