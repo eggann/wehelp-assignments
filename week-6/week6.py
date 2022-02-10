@@ -1,25 +1,20 @@
+from email import message
 from flask import Flask, url_for
 from flask import request # 載入 Request 物件
 from flask import render_template
 from flask import session
 from flask import redirect
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import mysql.connector
-        
-# mydb = mysql.connector.connect(
-# host = "localhost",
-# port = 3306,
-# user = "root",
-# database = "flaskapp",
-# password = "jiggjo9182"
-# )
-    
-# mycursor = mydb.cursor()
-# sql = "INSERT INTO users (name, account, password) VALUES (%s, %s, %s)"
-# val = ("Ben", "Benyeh", "benyeh123")
-# mycursor.execute(sql)
-# mydb.commit()
-# mydb.close()
+
+mydb = mysql.connector.connect(
+        host = "localhost",
+        port = 3306,
+        user = "root",
+        database = "flaskapp",
+        password = "",
+        charset = "utf8"
+        )
 
 app = Flask(
     __name__,
@@ -40,59 +35,61 @@ def signup():
         name = userDetails['name_new']
         account = userDetails['account_new']
         password = userDetails['password_new']
-        hash_pwd = generate_password_hash(password)
+        # hash_pwd = generate_password_hash(password)
         
-        mydb = mysql.connector.connect(
-        host = "localhost",
-        port = 3306,
-        user = "root",
-        database = "flaskapp",
-        password = "jiggjo9182",
-        charset = "utf8"
-        )
-        
+        sql = """
+            SELECT count(account) FROM users WHERE account = %s;
+        """
+        val = (account, )
         mycursor = mydb.cursor()
-        sql = """INSERT INTO users(name, account, password) VALUES (%s, %s, %s) """
-        val = (name, account, hash_pwd)
         mycursor.execute(sql, val)
-        mydb.commit()
-        return 'success'
-        # cur = """SELECT * FROM `users` WHERE `account` = %s"""
-        # mycursor.execute(cur, (account, ))
-        # result = int(mycursor.fetchall())
-        # if (len(result) == 0):
-        #     return False
-        # else:
-        #     return True
-        # num = cur.fetchall()
-        # num = int(num[0][0])
-        # if num >= 1:
-        #     result = "帳號已經被註冊"
-        #     return redirect(url_for('error', message=result))
-        # else:
-        #     return redirect("/")
-        # return 'success'
-    # return render_template('home.html')
+        num = tuple(mycursor)[0][0]
+        if num:
+            result = "帳號已經被註冊"
+            return redirect(url_for('error', message=result))
+        elif name == '' or account == '' or password == '':
+            result = "請輸入姓名、帳號、密碼，謝謝"
+            return redirect(url_for('error', message=result))
+        else:
+            sql = """
+            INSERT INTO users(name, account, password) VALUES (%s, %s, %s);
+            """
+            val = (name, account, password)
+            mycursor.execute(sql, val)
+            mydb.commit()
+            return redirect("/")
 
 @app.route("/signin",methods=["GET","POST"])
 def signin():
-    account=request.form["account"]
-    password=request.form["password"]
-    
-    if account and password == "test":
+    if request.method == 'POST':
+        # name=request.form["name"]
+        account=request.form["account"]
+        password=request.form["password"]
+        # hash_pwd = generate_password_hash(password)
+        
+        sql = """
+            SELECT count(account), count(password) FROM users WHERE account = %s and password = %s;
+        """
+        val = (account, password)
+        mycursor = mydb.cursor()
+        mycursor.execute(sql, val)
+        num = tuple(mycursor)[0][0]
         session["account"] = account
-        return redirect("/member/")
-    elif (account == '' and password == '') or (account == '' and password != '') or (account != '' and password == ''):
-        result = "請輸入帳號、密碼"
-        return redirect(url_for('error', message=result))
-    else:
-        result = "帳號、或密碼輸入錯誤"
-        return redirect(url_for('error', message=result)) 
+        if num:
+            account = session["account"]
+            return redirect(url_for('member', message=account))
+        elif (account == '' and password == '') or (account == '' and password != '') or (account != '' and password == ''):
+            result = "請輸入帳號、密碼"
+            return redirect(url_for('error', message=result))
+        else:
+            result = "帳號或密碼輸入錯誤"
+            return redirect(url_for('error', message=result)) 
      
 @app.route("/member/")
 def member():
     if "account" in session:
-        return render_template("member.html")
+        account = request.args.get("message")
+        return render_template("member.html", message=account)
     else:
         return redirect("/")
 
