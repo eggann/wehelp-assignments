@@ -70,7 +70,7 @@ def signin():
         sql = """
             SELECT count(name), count(account), count(password) FROM users WHERE name = %s and account = %s and password = %s;
         """
-        val = (account, password)
+        val = (name, account, password)
         mycursor = mydb.cursor()
         mycursor.execute(sql, val)
         num = tuple(mycursor)[0][0]
