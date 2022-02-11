@@ -1,4 +1,3 @@
-from email import message
 from flask import Flask, url_for
 from flask import request # 載入 Request 物件
 from flask import render_template
@@ -62,22 +61,22 @@ def signup():
 @app.route("/signin",methods=["GET","POST"])
 def signin():
     if request.method == 'POST':
-        name=request.form["name"]
         account=request.form["account"]
         password=request.form["password"]
         # hash_pwd = generate_password_hash(password)
-        
+
         sql = """
-            SELECT count(name), count(account), count(password) FROM users WHERE name = %s and account = %s and password = %s;
+            SELECT * FROM users WHERE account = %s and password = %s;
         """
-        val = (name, account, password)
+        val = (account, password)
         mycursor = mydb.cursor()
         mycursor.execute(sql, val)
-        num = tuple(mycursor)[0][0]
-        session["name"] = name
+        num = mycursor.fetchone()
         if num:
-            name = session["name"]
-            return redirect(url_for('member', message=name))
+            session["name"] = num[0]
+            session["account"] = account
+            session["password"] = password
+            return redirect('/member/')
         elif (account == '' and password == '') or (account == '' and password != '') or (account != '' and password == ''):
             result = "請輸入帳號、密碼"
             return redirect(url_for('error', message=result))
@@ -88,11 +87,11 @@ def signin():
 @app.route("/member/")
 def member():
     if "account" in session:
-        name = request.args.get("message")
-        return render_template("member.html", message=name)
+        name = session['name']
+        return render_template("member.html", name=name)
     else:
         return redirect("/")
-
+    
 @app.route("/error")
 def error():
     error = request.args.get("message")
