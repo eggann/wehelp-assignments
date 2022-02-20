@@ -19,7 +19,7 @@ def db_connection():
         port = 3306,
         user = "root",
         database = "website",
-        password = "",
+        password = "jiggjo9182",
         charset = "utf8"
         )
     except mysql.connector.Error as e:
@@ -50,6 +50,24 @@ def find_member():
         }
     else:
         return {'data': None}
+    
+@app.route('/api/member', methods=['GET','POST'])
+def update_member(): 
+    if "username" in session:
+        new_name = request.get_json(request.data)
+        username = session['username']
+        sql = """
+            UPDATE member SET name = %s WHERE username = %s
+        """
+        val = (new_name['name'], username, )
+        mydb = db_connection()
+        mycursor = mydb.cursor()
+        mycursor.execute(sql, val)
+        mydb.commit()
+        return {"ok": "true"}
+    else:
+        return {"error": "true"}
+    
 
 # 可以抓到全部的資料
 
@@ -60,7 +78,6 @@ def api_member():
     sql = """
             SELECT * FROM member;
         """
-    mycursor = mydb.cursor()
     mycursor.execute(sql)
     num = mycursor.fetchall()
     return jsonify(num)
